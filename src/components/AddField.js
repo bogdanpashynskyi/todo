@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 
 export default class AddField extends Component {
-    render() {
-        return (
-					<div>
-						<input type="text" placeholder="Add task..."></input>
-						<button> Add Task </button>
-					</div>
+	handleOnItemAdded = this.props.onItemAdded;
+	handleOnItemChange = this.props.onItemChange;
 
-        )
-    }
+  render() {
+    return (
+			<div>
+				<input 
+					onChange={(event) => {
+						this.handleOnItemChange(event.target.value)
+					}}
+					type="text" 
+					placeholder="Add task..."
+				>
+				</input>
+				<button
+					onClick={() => {
+					this.handleOnItemAdded()
+					}}
+				> 
+					Add Task 
+				</button>
+			</div>
+    )
+  }
 }
