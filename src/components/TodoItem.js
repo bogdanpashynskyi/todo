@@ -7,6 +7,8 @@ const TodoItem = ({
 	itemId, 
 	completed
 }) => {
+
+	console.log(completed)
   return (
     <div className="App__todo-item">
 			<input 
@@ -16,8 +18,8 @@ const TodoItem = ({
 				}}
 			>	
 			</input>
-			<li className="App__todo-item-completed">
-				{todoTask} {itemId}
+			<li className={completed ? "App__todo-item-completed" : ""}>
+				{todoTask}
 			</li>
     </div>
   )
