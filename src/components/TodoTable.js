@@ -59,7 +59,7 @@ export default class TodoTable extends Component {
 	}
 
   render() {
-		const { todos } = this.state;
+		const { todos, newTodo } = this.state;
 
     return (
 			<div>
@@ -67,6 +67,7 @@ export default class TodoTable extends Component {
 					<AddField 
 						onItemAdded={this.handleOnItemAdded}
 						onItemChange={this.handleItemChange}
+						onClearInput={newTodo}
 					/>
 					<TodoArchive 
 						handleArchive={this.handleArchive} 

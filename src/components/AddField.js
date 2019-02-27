@@ -3,14 +3,16 @@ import React, { Component } from 'react';
 export default class AddField extends Component {
 	handleOnItemAdded = this.props.onItemAdded;
 	handleOnItemChange = this.props.onItemChange;
-
+	
   render() {
-    return (
+		const onClearInput = this.props.onClearInput;
+    return (	
 			<div>
 				<input 
 					onChange={(event) => {
 						this.handleOnItemChange(event.target.value)
 					}}
+					value={onClearInput}
 					type="text" 
 					placeholder="Add task..."
 				>
