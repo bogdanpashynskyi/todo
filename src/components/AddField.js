@@ -12,6 +12,7 @@ export default class AddField extends Component {
 					onChange={(event) => {
 						this.handleOnItemChange(event.target.value)
 					}}
+					className="App__todo-input"
 					value={onClearInput}
 					type="text" 
 					placeholder="Add task..."

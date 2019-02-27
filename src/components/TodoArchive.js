@@ -5,7 +5,7 @@ const TodoArchive = ({ handleArchive }) => {
   return (
     <button
 			onClick={() => handleArchive()}
-		> Archive 
+		> Clear Completed
 		</button>
 	)
 }

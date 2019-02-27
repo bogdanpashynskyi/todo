@@ -7,8 +7,6 @@ const TodoItem = ({
 	itemId, 
 	completed
 }) => {
-
-	console.log(completed)
   return (
     <div className="App__todo-item">
 			<input 
