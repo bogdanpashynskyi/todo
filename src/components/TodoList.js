@@ -4,7 +4,7 @@ import TodoItem from './TodoItem'
 const TodoList = (props) => {
   const { todos, handleItemCompleted, } = props;	
     return (
-      <ul>
+      <ul className="App__todo-list">
         {todos.map(item => {
           return <TodoItem 
                   key={item.id}

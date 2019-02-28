@@ -1,12 +1,11 @@
-.App {
-    display: flex;
-    justify-content: center;
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    background-color:#F0F8FF;
 }
 
-.App__todo-item {
-    text-align: center;
-    display: flex;
-    list-style: none;
+.App__todo-list {
+    margin-left: 100px;
 }
 
 .App__todo-item-completed {
@@ -14,5 +13,87 @@
 }
 
 .App__todo-input {
+    font-size: 20px;
     width: 200px;
+    height: 40px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 2px solid black;
+    margin: 5px;
+}
+
+.App__todo-btn, .App__todo-add-btn {
+    font-size: 20px;
+    color: #0099CC;
+    background: transparent; 
+    border: 2px solid #0099CC;
+    border-radius: 10px; 
+    padding: 5px;
+    margin-right: 3px;
+}
+
+.App__todo-btn {
+    border: 2px solid #A9A9A9;
+    color:#A9A9A9
+}
+
+.App__todo-btn:hover, .App__todo-add-btn:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+.App__todo-btn:focus, .App__todo-add-btn:focus {outline:0;}
+
+.App__todo-item {
+    list-style: none;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.App__todo-checkbox {
+    margin-left: 10px;
+}
+
+.App {
+  padding: 30px;
+  position: relative;
+  width: 40%;
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+  background-color:#FFFACD;
+}
+
+.App,
+.App::before,
+.App::after {
+  /* Styles to distinguish sheets from one another */
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.25);
+  border: 1px solid #bbb;
+}
+
+.App::before,
+.App::after {
+  content: "";
+  position: absolute;
+  height: 95%;
+  width: 99%;
+  background-color: #eee;
+}
+
+.App::before {
+  right: 15px;
+  top: 0;
+  transform: rotate(-1deg);
+  z-index: -1;
+}
+
+.App::after {
+  top: 5px;
+  right: -5px;
+  transform: rotate(1deg);
+  z-index: -2;
 }

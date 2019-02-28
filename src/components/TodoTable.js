@@ -86,25 +86,26 @@ export default class TodoTable extends Component {
 
     return (
 			<div>
-				<h1>TodoTable</h1>
+				<h1>Your todo list</h1>
 					<AddField 
-						onItemAdded={this.handleOnItemAdded}
-						onItemChange={this.handleItemChange}
-						onClearInput={newTodo}
-					/>
-					<TodoAll 
-						showAll={this.showAll}
-					/>
-					<TodoArchive 
-						handleArchive={this.handleArchive} 
-					/>
-					<TodoActive 
-						showActive={this.showActive}
+							onItemAdded={this.handleOnItemAdded}
+							onItemChange={this.handleItemChange}
+							onClearInput={newTodo}
 					/>
 					<TodoList 
 						todos={todos} 
 						handleItemCompleted={this.handleItemCompleted}
 					/>
+						<TodoAll 
+							showAll={this.showAll}
+						/>
+						<TodoArchive 
+							handleArchive={this.handleArchive} 
+						/>
+						<TodoActive 
+							showActive={this.showActive}
+						/>
+					
 			</div>
     )
   }

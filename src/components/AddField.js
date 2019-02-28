@@ -19,6 +19,7 @@ export default class AddField extends Component {
 				>
 				</input>
 				<button
+					className="App__todo-add-btn"
 					onClick={() => {
 					this.handleOnItemAdded()
 					}}

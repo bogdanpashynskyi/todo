@@ -16,7 +16,7 @@ const TodoItem = ({
 				}}
 			>	
 			</input>
-			<li className={completed ? "App__todo-item-completed" : ""}>
+			<li className={`App__todo-checkbox ${completed ? "App__todo-item-completed" : ""}`}>
 				{todoTask}
 			</li>
     </div>
