@@ -24,7 +24,7 @@ export default class AddField extends Component {
 					this.handleOnItemAdded()
 					}}
 				> 
-					Add Task 
+					Add
 				</button>
 			</div>
     )
