@@ -6,7 +6,8 @@ import AddField from './AddField';
 import TodoList from './TodoList';
 import TodoArchive from './TodoArchive';
 import TodoActive from './TodoActive';
-import TodoAll from './TodoAll'
+import TodoAll from './TodoAll';
+import Counter from './Counter'
 
 export default class TodoTable extends Component {
 	state = {
@@ -14,7 +15,7 @@ export default class TodoTable extends Component {
 			{ id: 0, task: 'Buy groceries', completed: false },
 			{ id: 1, task: 'Take out trash', completed: false } 
 		],
-		newTodo: ''
+		newTodo: '',
 	}
 
 	handleArchive = () => {
@@ -62,9 +63,9 @@ export default class TodoTable extends Component {
 				task: newTodo,
 				completed: false,
 			}
-
+	
 			return {
-				todos: [ newItem, ...todos],
+				todos: [ newItem, ...todos ],
 				newTodo: '',
 			}
 		})
@@ -76,7 +77,7 @@ export default class TodoTable extends Component {
 			let index =  todosList.findIndex(item => item.id === itemId);
 			todosList[index].completed = !todosList[index].completed;
 			return {
-				todosList,
+				todos: todosList,
 			}  
 		})		
 	}
@@ -87,24 +88,27 @@ export default class TodoTable extends Component {
     return (
 			<div>
 				<h1>Your todo list</h1>
-					<AddField 
-							onItemAdded={this.handleOnItemAdded}
-							onItemChange={this.handleItemChange}
-							onClearInput={newTodo}
+				<AddField 
+						onItemAdded={this.handleOnItemAdded}
+						onItemChange={this.handleItemChange}
+						onClearInput={newTodo}
 					/>
 					<TodoList 
 						todos={todos} 
 						handleItemCompleted={this.handleItemCompleted}
 					/>
-						<TodoAll 
-							showAll={this.showAll}
-						/>
-						<TodoArchive 
-							handleArchive={this.handleArchive} 
-						/>
-						<TodoActive 
-							showActive={this.showActive}
-						/>
+					<TodoAll 
+						showAll={this.showAll}
+					/>
+					<TodoArchive 
+						handleArchive={this.handleArchive} 
+					/>
+					<TodoActive 
+						showActive={this.showActive}
+					/>
+					<Counter 
+						todos={todos}
+					/> 
 					
 			</div>
     )

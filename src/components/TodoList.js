@@ -2,7 +2,7 @@ import React from 'react';
 import TodoItem from './TodoItem'
 
 const TodoList = (props) => {
-  const { todos, handleItemCompleted, } = props;	
+  const { todos, handleItemCompleted } = props;	
     return (
       <ul className="App__todo-list">
         {todos.map(item => {
