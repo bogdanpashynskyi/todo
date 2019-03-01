@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Preview](https://bogdanpashynskyi.github.io/todo/)
+[Pull Request](https://github.com/bogdanpashynskyi/todo/pull/1)
 
 ## Available Scripts
 
