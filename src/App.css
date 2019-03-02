@@ -4,6 +4,10 @@ body {
     background-color:#F0F8FF;
 }
 
+.App__todo-tips {
+  font-size: 10px;
+  margin-top: 20px;
+}
 .App__todo-list {
   width: 60%;
   margin: 10px auto 10px auto;

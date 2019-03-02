@@ -15,6 +15,7 @@ export default class TodoTable extends Component {
 			{ id: 0, task: 'Buy groceries', completed: false, editMode: false },
 			{ id: 1, task: 'Take out trash', completed: false, editMode: false } 
 		],
+		editMode: false,
 		newTodo: '',
 	}
 
@@ -36,6 +37,7 @@ export default class TodoTable extends Component {
 
 			return {
 				todos: todosList,
+				editMode: !todosList.editMode,
 			}
 		}) 
 	}
@@ -54,6 +56,7 @@ export default class TodoTable extends Component {
 				todosList[index].editMode = false
 				return {
 					todos: todosList,
+					editMode: false,
 				}
 			})
 		}
@@ -67,6 +70,7 @@ export default class TodoTable extends Component {
 				todosList[index].editMode = false;
 				return {
 					todos: todosList,
+					editMode: false,
 				}
 			})
 		}
@@ -143,8 +147,8 @@ export default class TodoTable extends Component {
 	}
 
   render() {
-		const { todos, newTodo } = this.state;
-
+		const { todos, newTodo, editMode } = this.state;
+		console.log(editMode)
     return (
 			<div>
 				<h1>Your todo list</h1>
@@ -173,6 +177,14 @@ export default class TodoTable extends Component {
 				<Counter 
 					todos={todos}
 				/> 
+				<div className="App__todo-tips">
+				{ editMode ? <div> 
+					<p>Press 'Esc' to cancel changes</p>
+					<p>Press 'Enter' to update the item</p>
+				</div> : <div> Doubleclick to change the item </div> }
+				</div>
+
+
 			</div>
     )
   }
