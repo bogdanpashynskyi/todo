@@ -10,7 +10,7 @@ body {
 
 .App__todo-input {
     font-size: 20px;
-    width: 35%;
+    width: 45%;
     height: 40px;
     border: 0;
     outline: 0;
@@ -51,7 +51,7 @@ body {
     list-style: none;
     padding: 5px;
     display: flex;
-    margin-left: 50px;
+    margin-left: 70px;
 }
 
 .App__todo-checkbox {
@@ -103,16 +103,20 @@ body {
   z-index: -2;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 900px) {
   .App__todo-item {
-    margin-left: -20px;
-  }
-  .App__todo-input { 
-    width: 70%;
+    margin-left: 20px;
   }
 }
 
 @media only screen and (max-width: 700px) {
+  .App__todo-item {
+    margin-left: 0px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+
   .App {
     padding: 0px;
     position: relative;
@@ -122,4 +126,8 @@ body {
     text-align: center;
     background-color:#FFFACD;
   }
+  .App__todo-item {
+    margin-left: -10px;
+  } 
 }
+

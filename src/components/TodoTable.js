@@ -18,6 +18,12 @@ export default class TodoTable extends Component {
 		newTodo: '',
 	}
 
+	onPressInput = (event) => {
+		if (event.key === 'Enter') {
+			this.handleOnItemAdded()
+		} 
+	}
+
 	handleArchive = () => {
 		this.setState(({ todos }) => {
 			let remainingTasks = todos.filter(item => !item.completed);
@@ -92,6 +98,7 @@ export default class TodoTable extends Component {
 						onItemAdded={this.handleOnItemAdded}
 						onItemChange={this.handleItemChange}
 						onClearInput={newTodo}
+						handleOnPressInput={this.onPressInput}
 					/>
 					<TodoList 
 						todos={todos} 

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 export default class AddField extends Component {
 	handleOnItemAdded = this.props.onItemAdded;
 	handleOnItemChange = this.props.onItemChange;
+	handleOnPressInput = this.props.handleOnPressInput;
 	
   render() {
 		const onClearInput = this.props.onClearInput;
@@ -12,6 +13,7 @@ export default class AddField extends Component {
 					onChange={(event) => {
 						this.handleOnItemChange(event.target.value)
 					}}
+					onKeyPress={(event) => this.handleOnPressInput(event)}
 					className="App__todo-input"
 					value={onClearInput}
 					type="text" 
