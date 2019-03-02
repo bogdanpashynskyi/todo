@@ -1,34 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class AddField extends Component {
-	handleOnItemAdded = this.props.onItemAdded;
-	handleOnItemChange = this.props.onItemChange;
-	handleOnPressInput = this.props.handleOnPressInput;
-	
-  render() {
-		const onClearInput = this.props.onClearInput;
-    return (	
-			<div>
-				<input 
-					onChange={(event) => {
-						this.handleOnItemChange(event.target.value)
-					}}
-					onKeyPress={(event) => this.handleOnPressInput(event)}
-					className="App__todo-input"
-					value={onClearInput}
-					type="text" 
-					placeholder="Add task..."
-				>
-				</input>
-				<button
-					className="App__todo-add-btn"
-					onClick={() => {
-					this.handleOnItemAdded()
-					}}
-				> 
-					Add
-				</button>
-			</div>
-    )
-  }
+const AddField = (props) => {
+	const { onItemChange, onPressInput, onItemAdded, onClearInput } = props;
+	return (	
+	<div>
+		<input 
+			onChange={(event) => onItemChange(event.target.value)}
+			onKeyPress={(event) => onPressInput(event)}
+			className="App__todo-input"
+			value={onClearInput}
+			type="text" 
+			placeholder="Add task..."
+		>
+		</input>
+		<button
+			className="App__todo-add-btn"
+			onClick={() => onItemAdded()}
+		> 
+			Add
+		</button>
+	</div>
+)
 }
+
+export default AddField

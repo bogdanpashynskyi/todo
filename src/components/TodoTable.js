@@ -12,8 +12,8 @@ import Counter from './Counter'
 export default class TodoTable extends Component {
 	state = {
 		todos: [
-			{ id: 0, task: 'Buy groceries', completed: false },
-			{ id: 1, task: 'Take out trash', completed: false } 
+			{ id: 0, task: 'Buy groceries', completed: false, editMode: false },
+			{ id: 1, task: 'Take out trash', completed: false, editMode: false } 
 		],
 		newTodo: '',
 	}
@@ -22,6 +22,54 @@ export default class TodoTable extends Component {
 		if (event.key === 'Enter') {
 			this.handleOnItemAdded()
 		} 
+	}
+
+	changeEditMode = (itemId) => {
+		this.setState(({ todos }) => {
+			let todosList = [...todos];
+
+			for (let todo of todosList) {
+				todo.editMode = false;
+			}
+			let index =  todosList.findIndex(item => item.id === itemId);
+			todosList[index].editMode = !todosList[index].editMode;
+
+			return {
+				todos: todosList,
+			}
+		}) 
+	}
+
+	updateItem = (event, itemId) => {
+		let updatedItem = event.target.value;
+		if (!updatedItem) {
+			return
+		}
+
+		if (event.key === 'Enter') {
+			this.setState(({ todos }) => {
+				let todosList = [...todos];
+				let index =  todosList.findIndex(item => item.id === itemId);
+				todosList[index].task = updatedItem;
+				todosList[index].editMode = false
+				return {
+					todos: todosList,
+				}
+			})
+		}
+	}
+
+	cancelUpdate = (event, itemId) => {
+		if (event.key === 'Escape') {
+			this.setState(({ todos }) => {
+				let todosList = [...todos];
+				let index =  todosList.findIndex(item => item.id === itemId);
+				todosList[index].editMode = false;
+				return {
+					todos: todosList,
+				}
+			})
+		}
 	}
 
 	handleArchive = () => {
@@ -68,6 +116,7 @@ export default class TodoTable extends Component {
 				id: todos.length + 1,
 				task: newTodo,
 				completed: false,
+				editMode: false,
 			}
 	
 			return {
@@ -88,6 +137,11 @@ export default class TodoTable extends Component {
 		})		
 	}
 
+	findIndex = (todos, itemId) => {
+		let todosList = [...todos];
+		return todosList.findIndex(item => item.id === itemId);
+	}
+
   render() {
 		const { todos, newTodo } = this.state;
 
@@ -95,28 +149,30 @@ export default class TodoTable extends Component {
 			<div>
 				<h1>Your todo list</h1>
 				<AddField 
-						onItemAdded={this.handleOnItemAdded}
-						onItemChange={this.handleItemChange}
-						onClearInput={newTodo}
-						handleOnPressInput={this.onPressInput}
-					/>
-					<TodoList 
-						todos={todos} 
-						handleItemCompleted={this.handleItemCompleted}
-					/>
-					<TodoAll 
-						showAll={this.showAll}
-					/>
-					<TodoArchive 
-						handleArchive={this.handleArchive} 
-					/>
-					<TodoActive 
-						showActive={this.showActive}
-					/>
-					<Counter 
-						todos={todos}
-					/> 
-					
+					onItemAdded={this.handleOnItemAdded}
+					onItemChange={this.handleItemChange}
+					onClearInput={newTodo}
+					onPressInput={this.onPressInput}
+				/>				
+				<TodoList 
+					todos={todos} 
+					handleItemCompleted={this.handleItemCompleted}
+					changeEditMode={this.changeEditMode}
+					updateItem={this.updateItem}
+					cancelUpdate={this.cancelUpdate}
+				/>
+				<TodoAll 
+					showAll={this.showAll}
+				/>
+				<TodoArchive 
+					handleArchive={this.handleArchive} 
+				/>
+				<TodoActive 
+					showActive={this.showActive}
+				/>
+				<Counter 
+					todos={todos}
+				/> 
 			</div>
     )
   }

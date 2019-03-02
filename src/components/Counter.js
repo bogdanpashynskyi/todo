@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Counter = ({ todos }) => {
-	console.log(todos[1]);
 
 	let count = 0; 
 	for (let todo of todos) {
