@@ -9,13 +9,14 @@ import TodoActive from './TodoActive';
 import TodoAll from './TodoAll';
 import Counter from './Counter'
 
+let length = 1;
+
 export default class TodoTable extends Component {
 	state = {
 		todos: [
 			{ id: 0, task: 'Buy groceries', completed: false, editMode: false },
-			{ id: 1, task: 'Take out trash', completed: false, editMode: false } 
 		],
-		editMode: false,
+		showTips: false,
 		newTodo: '',
 	}
 
@@ -26,24 +27,21 @@ export default class TodoTable extends Component {
 	}
 
 	changeEditMode = (itemId) => {
-		this.setState(({ todos }) => {
+		this.setState(({ todos, showTips }) => {
 			let todosList = [...todos];
-
-			for (let todo of todosList) {
-				todo.editMode = false;
-			}
-			let index =  todosList.findIndex(item => item.id === itemId);
-			todosList[index].editMode = !todosList[index].editMode;
-
+			let updatedTodoList = todosList.map(el => {
+				return {...el, editMode: el.id === itemId}
+		  })
 			return {
-				todos: todosList,
-				editMode: !todosList.editMode,
+				todos: updatedTodoList,
+				showTips: !showTips,
 			}
 		}) 
 	}
 
 	updateItem = (event, itemId) => {
 		let updatedItem = event.target.value;
+
 		if (!updatedItem) {
 			return
 		}
@@ -51,12 +49,15 @@ export default class TodoTable extends Component {
 		if (event.key === 'Enter') {
 			this.setState(({ todos }) => {
 				let todosList = [...todos];
-				let index =  todosList.findIndex(item => item.id === itemId);
-				todosList[index].task = updatedItem;
-				todosList[index].editMode = false
+				let updatedTodosList = todosList.map(item => {
+					return {
+						...item, 
+						task: item.id === itemId ? updatedItem : item.task, 
+						editMode: false}
+				})
 				return {
-					todos: todosList,
-					editMode: false,
+					todos: updatedTodosList,
+					showTips: false,
 				}
 			})
 		}
@@ -66,11 +67,12 @@ export default class TodoTable extends Component {
 		if (event.key === 'Escape') {
 			this.setState(({ todos }) => {
 				let todosList = [...todos];
-				let index =  todosList.findIndex(item => item.id === itemId);
-				todosList[index].editMode = false;
+				let originalTodosList = todosList.map(item => {
+					return { ...item, editMode: false}
+				})
 				return {
-					todos: todosList,
-					editMode: false,
+					todos: originalTodosList,
+					showTips: false,
 				}
 			})
 		}
@@ -117,7 +119,7 @@ export default class TodoTable extends Component {
 
 		this.setState(({ todos, newTodo }) => {
 			let newItem = {
-				id: todos.length + 1,
+				id: length++,
 				task: newTodo,
 				completed: false,
 				editMode: false,
@@ -133,22 +135,21 @@ export default class TodoTable extends Component {
 	handleItemCompleted = (itemId) => {
 		this.setState(({ todos }) => {
 			let todosList = [...todos];
-			let index =  todosList.findIndex(item => item.id === itemId);
-			todosList[index].completed = !todosList[index].completed;
+			let updatedTodosList =  todosList.map(item => {
+				return {
+					...item, 
+					completed: item.id === itemId ? !item.completed : item.completed,
+				}
+			});
 			return {
-				todos: todosList,
+				todos: updatedTodosList,
 			}  
 		})		
 	}
 
-	findIndex = (todos, itemId) => {
-		let todosList = [...todos];
-		return todosList.findIndex(item => item.id === itemId);
-	}
-
   render() {
-		const { todos, newTodo, editMode } = this.state;
-		console.log(editMode)
+		const { todos, newTodo, showTips } = this.state;
+
     return (
 			<div>
 				<h1>Your todo list</h1>
@@ -178,13 +179,11 @@ export default class TodoTable extends Component {
 					todos={todos}
 				/> 
 				<div className="App__todo-tips">
-				{ editMode ? <div> 
+				{ showTips ? <div> 
 					<p>Press 'Esc' to cancel changes</p>
 					<p>Press 'Enter' to update the item</p>
 				</div> : <div> Doubleclick to change the item </div> }
 				</div>
-
-
 			</div>
     )
   }
