@@ -127,11 +127,17 @@ body {
   .App__todo-item {
     margin-left: 20px;
   }
+  .App {
+    width: 50%;
+  }
 }
 
 @media only screen and (max-width: 700px) {
   .App__todo-item {
     margin-left: 0px;
+  }
+  .App {
+    width: 65%;
   }
 }
 

@@ -4,20 +4,51 @@ import '../App.css';
 
 import AddField from './AddField';
 import TodoList from './TodoList';
-import TodoArchive from './TodoArchive';
-import TodoActive from './TodoActive';
-import TodoAll from './TodoAll';
+import TodoFilter from './TodoFilter';
 import Counter from './Counter'
 
-let length = 1;
+let length = 0;
 
 export default class TodoTable extends Component {
 	state = {
 		todos: [
-			{ id: 0, task: 'Buy groceries', completed: false, editMode: false },
+			{ id: 999, task: 'Buy groceries', completed: false, editMode: false },
+			{ id: 1000, task: 'Go for a walk', completed: false, editMode: false },
 		],
-		showTips: false,
+		filterMode: 'all',
+		showTips: false,   
 		newTodo: '',
+	}
+
+	handleArchive = () => {
+		this.setState(({ todos }) => {
+			let todosList = [...todos]
+
+			let remainingTasks = todosList.filter(item => !item.completed)
+
+			return {
+				todos: remainingTasks,
+			}
+		})
+	}
+
+	onFilterChange = (event) => {
+		let filterMode = event.target.value;
+		this.setState({ filterMode })
+	}
+
+	handleFilter = (todos) => {
+		let filter = this.state.filterMode;
+		switch(filter) {
+			case 'all': 
+			return todos;
+			case 'active':
+			return todos.filter(item => !item.completed);
+			case 'completed': 
+			return todos.filter(item => item.completed)
+			default: 
+				return todos;
+		}
 	}
 
 	onPressInput = (event) => {
@@ -78,33 +109,6 @@ export default class TodoTable extends Component {
 		}
 	}
 
-	handleArchive = () => {
-		this.setState(({ todos }) => {
-			let remainingTasks = todos.filter(item => !item.completed);
-			return {
-				todos: remainingTasks,
-			}
-		})
-	}
-
-	showActive = () => {
-		this.setState(({ todos }) => {
-			let activeTasks = todos.filter(item => !item.completed)
-			return {
-				todos: activeTasks,
-			}
-	})
-	}
-
-	showAll = () => {
-		this.setState(( { todos }) => {
-			let allTasks = todos.map(item => item)
-			return {
-				todos: allTasks,
-			}
-		})
-	} 
-
 	handleItemChange = (text) => {
 		this.setState( {
 			newTodo: text,
@@ -149,7 +153,7 @@ export default class TodoTable extends Component {
 
   render() {
 		const { todos, newTodo, showTips } = this.state;
-
+		let filteredTodos = this.handleFilter(todos);
     return (
 			<div>
 				<h1>Your todo list</h1>
@@ -158,23 +162,21 @@ export default class TodoTable extends Component {
 					onItemChange={this.handleItemChange}
 					onClearInput={newTodo}
 					onPressInput={this.onPressInput}
-				/>				
+				/>			
 				<TodoList 
-					todos={todos} 
+					todos={filteredTodos} 
 					handleItemCompleted={this.handleItemCompleted}
 					changeEditMode={this.changeEditMode}
 					updateItem={this.updateItem}
 					cancelUpdate={this.cancelUpdate}
 				/>
-				<TodoAll 
-					showAll={this.showAll}
+				<TodoFilter 
+					onFilterChange={this.onFilterChange}
 				/>
-				<TodoArchive 
-					handleArchive={this.handleArchive} 
-				/>
-				<TodoActive 
-					showActive={this.showActive}
-				/>
+				<button
+				className="App__todo-btn"
+				onClick={() => this.handleArchive(todos)}> Archive 
+				</button>	
 				<Counter 
 					todos={todos}
 				/> 
