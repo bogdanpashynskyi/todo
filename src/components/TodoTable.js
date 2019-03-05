@@ -51,12 +51,6 @@ export default class TodoTable extends Component {
 		}
 	}
 
-	onPressInput = (event) => {
-		if (event.key === 'Enter') {
-			this.handleOnItemAdded()
-		} 
-	}
-
 	changeEditMode = (itemId) => {
 		this.setState(({ todos, showTips }) => {
 			let todosList = [...todos];
